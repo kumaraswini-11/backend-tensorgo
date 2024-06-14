@@ -30,9 +30,6 @@ const handleGetFeedbackByCategory = async (req, res) => {
     const filter = category ? { category } : {};
     const feedbackList = await Feedback.find(filter);
 
-    console.log("category:: ", category);
-    console.log("filter:: ", filter);
-
     res.status(200).json({ data: feedbackList });
   } catch (error) {
     console.error("Error retrieving feedback:", error);
