@@ -4,8 +4,8 @@
 
 To maintain a clean, maintainable, and scalable codebase, I've adhered to best practices by organizing the project into separate repositories for the frontend and backend components.
 
-- Backend Repository: [Link]
-- Frontend Repository: [Link]
+- Backend Repository: [https://github.com/kumaraswini-11/backend-tensorgo]
+- Frontend Repository: [https://github.com/kumaraswini-11/frontend-tensorgo]
 
 ## Setup and Running the Application
 
