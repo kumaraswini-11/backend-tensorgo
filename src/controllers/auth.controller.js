@@ -1,5 +1,6 @@
 import { OAuth2Client } from "google-auth-library";
 import { config } from "../config/config.js";
+import User from "../models/user.model.js";
 
 const oAuth2Client = new OAuth2Client(
   config.googleClientID,
@@ -26,13 +27,20 @@ export const handleGoogleLogin = async (req, res) => {
     const payload = ticket.getPayload();
     const { email, name, picture } = payload;
 
-    // Store refresh token securely in your database
-    // const user = await saveTokensToDatabase(
-    //   email,
-    //   name,
-    //   picture,
-    //   tokens.refresh_token
-    // );
+    let user = await User.findOne({ email });
+    if (!user) {
+      // Create a new user if one doesn't exist
+      user = await User.create({
+        email,
+        name,
+        picture,
+        refreshToken: tokens.refresh_token,
+      });
+    } else {
+      // Update existing user's refresh token
+      user.refreshToken = tokens.refresh_token;
+      await user.save();
+    }
 
     return res
       .status(201)
@@ -40,7 +48,7 @@ export const handleGoogleLogin = async (req, res) => {
       .cookie("idToken", tokens.id_token, cookieOptions)
       .json({
         message: "Login successful",
-        data: { email, name, picture },
+        data: { userId: user._id, email, name, picture },
       });
   } catch (error) {
     console.error("Error handling Google login:", error);

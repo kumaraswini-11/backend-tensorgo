@@ -6,6 +6,6 @@ import {
 
 const router = express.Router();
 router.post("/", handleSubmitFeedback);
-router.get("/category/:category", handleGetFeedbackByCategory);
+router.get("/", handleGetFeedbackByCategory);
 
 export default router;

@@ -5,4 +5,5 @@ export const config = {
   frillAPIURL: "https://tensorgoassignment.frill.co/",
   port: process.env.PORT || 3000,
   corsOrigin: process.env.CORS_ORIGIN,
+  mongoDBUri: process.env.MONGODB_URI
 };
